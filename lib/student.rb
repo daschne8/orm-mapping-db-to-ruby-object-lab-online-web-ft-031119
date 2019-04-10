@@ -80,4 +80,11 @@ class Student
     self.new_from_db(DB[:conn].execute(sql)[0])
   end
 
+  def self.all_students_in_grade_X(x)
+    sql = <<-SQL
+    SELECT * FROM students WHERE grade = ?
+    SQL
+    DB[:conn].execute(sql,x).map { |row| self.new_from_db(row) }
+  end
+
 end
